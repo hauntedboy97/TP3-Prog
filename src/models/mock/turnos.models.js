@@ -15,6 +15,42 @@ class TurnoModel {
     );
     this.id = 2;
   }
-}
 
+
+
+  getTurnobyPaciente(idPaciente){
+    return new Promise((resolve,reject)=>{
+      try{
+        const identificador = Number(idPaciente);
+        const turnoEncontrado = this.data.find(turno=>turno.idPaciente === identificador)
+        if(!turnoEncontrado){
+          throw new Error("el id es incorrecto");
+          }
+        resolve(turnoEncontrado);
+      }catch(error){
+        reject(error)
+      }
+    })
+  }
+  list() {
+    return new Promise((resolve, reject) => {
+      resolve(this.data);
+    });
+  }
+  delete(id) {
+    return new Promise((resolve,reject)=>{
+      try {
+       const turnoEncontrado = this.data.find(turno => turno.id == id);
+       if(!turnoEncontrado){
+         throw new Error("No existe un turno con esa id");
+       }
+       const pos = this.data.indexOf(turnoEncontrado);
+       this.data.splice(pos, 1);
+       resolve(turnoEncontrado);
+      } catch (error) {
+       reject(error);
+    }
+    })
+  }
+}
 module.exports = TurnoModel;
