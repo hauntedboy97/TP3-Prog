@@ -24,4 +24,7 @@ const pacienteSchema = {
     get: Joi.object({
         dni: Joi.string().pattern(/^\d+$/).min(8).required()
     })
+
+
 }
+module.exports = pacienteSchema
