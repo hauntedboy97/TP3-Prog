@@ -1,4 +1,3 @@
-// TODO: crear todo
 const {Router} = require('express');
 const turnosController = require('../controllers/API/turnos.controller.js');
 const rutaTurnos = Router();
