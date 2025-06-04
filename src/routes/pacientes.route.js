@@ -6,9 +6,9 @@ const  {verifyTokenMiddleware}  = require('../middlewares/verifyToken.middleware
 const pacienteSchema = require('../schemes/pacientes.schema.js');
 const rutaPacientes = Router();
 rutaPacientes.get('/', verifyTokenMiddleware, pacientesController.list);
-rutaPacientes.post('/login',pacientesController.login)
+rutaPacientes.post('/login',pacientesController.login)//validate
 rutaPacientes.post('/',verifyTokenMiddleware, validate(pacienteSchema.create),pacientesController.create);
-rutaPacientes.put('/:id',verifyTokenMiddleware,pacientesController.update);
-rutaPacientes.delete('/:id',verifyTokenMiddleware,pacientesController.delete);
+rutaPacientes.put('/:id',verifyTokenMiddleware,pacientesController.update);//validate
+rutaPacientes.delete('/:id',verifyTokenMiddleware,pacientesController.delete);//validate
 
 module.exports = rutaPacientes;

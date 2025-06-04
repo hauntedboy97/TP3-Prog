@@ -1,5 +1,4 @@
-// TODO: crear el model
-//modelo del turno
+
 const Turno = require('./entities/turnos.entity');
 
 
@@ -14,9 +13,10 @@ class TurnoModel {
       )
     );
     this.id = 2;
+
   }
 
-
+ // crear turno
 
   getTurnobyPaciente(idPaciente){
     return new Promise((resolve,reject)=>{
@@ -39,7 +39,7 @@ class TurnoModel {
   }
   delete(id) {
     return new Promise((resolve,reject)=>{
-      try {
+      try { //sacar trycatch mirar pacientes create
        const turnoEncontrado = this.data.find(turno => turno.id == id);
        if(!turnoEncontrado){
          throw new Error("No existe un turno con esa id");

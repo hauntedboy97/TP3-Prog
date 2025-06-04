@@ -17,34 +17,30 @@ class PacientesModel {
     this.id = 2;
   }
 
-  findByEmail(email, password) {
+  findByEmail(email, password) {  // asi tenemos que hacer todos las promesas 
     return new Promise((resolve, reject) => {
-      try {
         const paciente = this.data.find(
           (p) => p.email === email && p.password === password
         );
-        if (paciente === null) {
-          throw new Error("el paciente no existe");
-        }
+        if (paciente === undefined) {
+          reject (new Error("el paciente no existe"));
+        }else
         resolve(paciente);
-      } catch (error) {
-        reject(error);
-      }
     });
   }
   validate(email, password) {
     return new Promise(async (resolve, reject) => {
-      try {
         const userFound = await this.findByEmail(email, password);
 
         if (!userFound || userFound.password == null) {
-          throw new Error("wrong email or password");
+          reject ( new Error("wrong email or password"));
         }
-
+        else {
         //payload, secreto, tiempo de expiracion
         const payload = {
           userId: userFound._id,
           userEmail: userFound.email,
+        
         };
         console.log("palabra secreta, pacientes model:", Config.secreteWord);
 
@@ -52,8 +48,6 @@ class PacientesModel {
           expiresIn: Config.expiresIn,
         });
         resolve(token);
-      } catch (error) {
-        reject(error);
       }
     });
   }
@@ -62,7 +56,7 @@ class PacientesModel {
   create(paciente) {
     //return persona;
     return new Promise((resolve, reject) => {
-      try{
+      try{  // cambiar el trycatch para solucionar lo del reject error 
         paciente.id = this.id;
         this.id++;
         const pacienteEncontrado = this.data.find(p=>p.email===paciente.email)
@@ -83,7 +77,7 @@ class PacientesModel {
   // actualiza los datos del cliente con id = id
   update(id, paciente) {
     return new Promise((resolve,reject)=>{
-      try {
+      try { // aca lo mismo, cambiar el trycatch, ver video de sergio 
 
          const pacienteEncontrado = this.data.find((p) => p.id == id);
       if (pacienteEncontrado===null) {
@@ -140,5 +134,7 @@ class PacientesModel {
      })
   }
 }
+
+// TODO:  Hacer los crud de nuevo
 
 module.exports = new PacientesModel();
