@@ -12,7 +12,7 @@ class Server {
     this.app = express()
     this.port = process.env.PORT || 3001
     this.middleware()
-    this.cors()
+    //this.cors()
     this.engine(template)
     this.rutas()
  
