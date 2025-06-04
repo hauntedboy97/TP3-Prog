@@ -43,8 +43,6 @@ class Server {
     this.app.use('/api/v1/pacientes', rutaPacientes)
     this.app.use('/',home)
     this.app.use('/api/v1/turnos', rutaTurnos)
-    // TODO: aca van las otras rutas
-
   }
 
   listen () {
