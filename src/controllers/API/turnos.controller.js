@@ -8,6 +8,15 @@ class TurnoController {
     async list(req, res) {
         res.status(200).json(await turnosModel.list());
     }
+    async create(req, res) {
+        const { fecha, hora } = req.body;
+
+
+        const nuevoTurno = new Turno(fecha, hora);
+
+        const info = await pacientesModel.create(nuevoTurno);
+        res.status(200).json(info);
+    }
     async get(req, res) {
         const id = req.params.idPaciente;
         res.status(200).json(await turnosModel.getTurnobyPaciente(id));
@@ -15,13 +24,14 @@ class TurnoController {
     delete(req, res) {
         const id = req.params.id;
         const turnoBorrado = turnosModel.delete(id);
-        turnoBorrado.then(turno=>{
+        turnoBorrado.then(turno => {
             res.status(200).json(turno);
         }).catch(
-            error=>{
-                res.status(404).json({message:`no existe el turno para el paciente con el id:${id}`,error})}
+            error => {
+                res.status(404).json({ message: `no existe el turno para el paciente con el id:${id}`, error })
+            }
         );
-      }
+    }
 }
 
 module.exports = new TurnoController();
