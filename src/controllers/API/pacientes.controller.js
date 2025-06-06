@@ -23,13 +23,14 @@ class PacientesController {
   async list(req, res) {
     res.status(200).json(await pacientesModel.list());
   }
+  
   async create(req, res) {
     const { dni, nombre, apellido, email } = req.body;
 
     const nuevoPaciente = new Paciente(dni, nombre, apellido, email);
 
     const info = await pacientesModel.create(nuevoPaciente);
-    res.status(200).json(info);
+    res.status(201).json(info);
   }
   delete(req, res) {
     const id = req.params.id;

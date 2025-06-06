@@ -38,6 +38,7 @@ class Server {
   middleware () {
     // this.app.use('/', express.static('public'))
     this.app.use(express.json())
+    this.app.use(express.urlencoded({extended: true}))
     this.app.use(morgan('dev'))
   }
 
@@ -45,8 +46,6 @@ class Server {
     this.app.use('/api/v1/pacientes', rutaPacientes)
     this.app.use('/',home)
     this.app.use('/api/v1/turnos', rutaTurnos)
-    // TODO: aca van las otras rutas
-
   }
 
   listen () {

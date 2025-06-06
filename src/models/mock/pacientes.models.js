@@ -1,11 +1,11 @@
-const Persona = require("./../mock/entities/paciente.entity.js");
+const Paciente = require("./../mock/entities/paciente.entity.js");
 const Config = require("./../../config/config.js");
 const jwt = require("jsonwebtoken");
 class PacientesModel {
   constructor() {
     this.data = [];
     this.data.push(
-      new Persona(
+      new Paciente(
         "123456787",
         "Sergio",
         "Antozzi",
@@ -17,34 +17,28 @@ class PacientesModel {
     this.id = 2;
   }
 
-  findByEmail(email, password) {
+  findByEmail(email, password) {  
     return new Promise((resolve, reject) => {
-      try {
-        const paciente = this.data.find(
-          (p) => p.email === email && p.password === password
-        );
-        if (paciente === null) {
-          throw new Error("el paciente no existe");
-        }
+      const paciente = this.data.find((p) => p.email === email && p.password === password);
+      if (!paciente) {
+        reject(new Error("el paciente no existe"));
+      } else
         resolve(paciente);
-      } catch (error) {
-        reject(error);
-      }
     });
   }
   validate(email, password) {
     return new Promise(async (resolve, reject) => {
-      try {
-        const userFound = await this.findByEmail(email, password);
+      const userFound = await this.findByEmail(email, password);
 
-        if (!userFound || userFound.password == null) {
-          throw new Error("wrong email or password");
-        }
-
+      if (!userFound || userFound.password == null) {
+        reject(new Error("wrong email or password"));
+      }
+      else {
         //payload, secreto, tiempo de expiracion
         const payload = {
           userId: userFound._id,
           userEmail: userFound.email,
+
         };
         console.log("palabra secreta, pacientes model:", Config.secreteWord);
 
@@ -52,8 +46,6 @@ class PacientesModel {
           expiresIn: Config.expiresIn,
         });
         resolve(token);
-      } catch (error) {
-        reject(error);
       }
     });
   }
@@ -62,83 +54,66 @@ class PacientesModel {
   create(paciente) {
     //return persona;
     return new Promise((resolve, reject) => {
-      try{
-        paciente.id = this.id;
-        this.id++;
-        const pacienteEncontrado = this.data.find(p=>p.email===paciente.email)
-        if(pacienteEncontrado===null){
-          this.data.push(paciente);
-        }else{
-          throw new Error("el paciente ya existe")
-        }
-            
-
-        resolve(paciente);
-      }catch(error){
-        reject(error);
+      paciente.id = this.id;
+      this.id++;
+      const pacienteEncontrado = this.data.find(p => p.email === paciente.email)
+      if (!pacienteEncontrado) {
+        this.data.push(paciente);
+      } else {
+        reject(new Error("el paciente ya existe"))
       }
- 
+      resolve(paciente); 
     });
   }
+
   // actualiza los datos del cliente con id = id
   update(id, paciente) {
-    return new Promise((resolve,reject)=>{
-      try {
-
-         const pacienteEncontrado = this.data.find((p) => p.id == id);
-      if (pacienteEncontrado===null) {
-        throw new Error("No se encuntra el paciente");
+    return new Promise((resolve, reject) => {
+      const pacienteEncontrado = this.data.find((p) => p.id == id);
+      if (!pacienteEncontrado) {
+        reject(new Error("No se encuntra el paciente"));
       }
       pacienteEncontrado.dni = paciente.dni;
       pacienteEncontrado.email = paciente.email;
       pacienteEncontrado.nombre = paciente.nombre;
       pacienteEncontrado.apellido = paciente.apellido;
       resolve(pacienteEncontrado);
-    } catch (error) {
-      reject(error);
-    }
     })
-    
   }
+
   // elimina el cliente con id = id
   delete(id) {
-    new Promise((resolve,reject)=>{
-      try {
-       const pacienteEncontrado = this.data.find((p) => p.id == id);
-       if(!pacienteEncontrado){
-         throw new Error("el id no es válido");
-       }
-       const pos = this.data.indexOf(pacienteEncontrado);
-       this.data.splice(pos, 1);
-       resolve(pacienteEncontrado); // elimina el elemento de la posición pos del arreglo
-      } catch (error) {
-       reject(error);
-    }
-    })
-
-   
+    new Promise((resolve, reject) => {
+        const pacienteEncontrado = this.data.find((p) => p.id == id);
+        if (!pacienteEncontrado) {
+          reject( new Error("el id no es válido"));
+        }
+        const pos = this.data.indexOf(pacienteEncontrado);
+        this.data.splice(pos, 1);
+        resolve(pacienteEncontrado); // elimina el elemento de la posición pos del arreglo
+  })
   }
   // devuelve la lista completa en un arreglo de strings
   list() {
     return new Promise((resolve, reject) => {
+      console.log(this.data)
       resolve(this.data);
     });
   }
-  getPacienteById(id){
-     return new Promise((resolve,reject)=>{
-       try{
-         const identificador = Number(id);
-         const pacienteEncontrado = this.data.find(paciente=>paciente.id === identificador)
-       if(!pacienteEncontrado){
-           throw new Error("el id es incorrecto");
-       }
+  getPacienteById(id) {
+    return new Promise((resolve, reject) => {
+        const identificador = Number(id);
+        const pacienteEncontrado = this.data.find(paciente => paciente.id === identificador)
+        if (!pacienteEncontrado) {
+          reject( new Error("el id es incorrecto"));
+        }
         resolve(pacienteEncontrado);
-       }catch(error){
-         reject(error)
-       }
-      
-     })
+    })
   }
 }
+
+// TODO:  (revisar los crud, "rehice": saque los try y modifique los if - Fran)
+// preguntar por que no se guarda la contraseña: si registras un usuario y usar el get,
+// el password de la persona figura "undefined", lo cual genera error cuando se intenta loggear
 
 module.exports = new PacientesModel();

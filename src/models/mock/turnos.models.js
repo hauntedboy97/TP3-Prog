@@ -1,5 +1,4 @@
-// TODO: crear el model
-//modelo del turno
+
 const Turno = require('./entities/turnos.entity');
 
 
@@ -8,15 +7,29 @@ class TurnoModel {
     this.data = [];
     this.data.push(
       new Turno(
-        1,
-        "4",
-        "2025-01-01 12:00:00"
+        "2025-01-01",
+        "12:00:00",
+        1
       )
     );
     this.id = 2;
+
   }
 
-
+ // crear turno
+   create(turno) {
+    return new Promise((resolve, reject) => {
+      turno.id = this.id;
+      this.id++;
+      const turnoEncontrado = this.data.find(t => t.fecha == turno.fecha && t.hora == turno.hora)
+      if (!turnoEncontrado) {
+        this.data.push(turno);
+      } else {
+        throw new Error("el turno ya esta ocupado")
+      }
+      resolve(turno);
+    });
+  }
 
   getTurnobyPaciente(idPaciente){
     return new Promise((resolve,reject)=>{
@@ -32,14 +45,8 @@ class TurnoModel {
       }
     })
   }
-  list() {
-    return new Promise((resolve, reject) => {
-      resolve(this.data);
-    });
-  }
   delete(id) {
     return new Promise((resolve,reject)=>{
-      try {
        const turnoEncontrado = this.data.find(turno => turno.id == id);
        if(!turnoEncontrado){
          throw new Error("No existe un turno con esa id");
@@ -47,9 +54,6 @@ class TurnoModel {
        const pos = this.data.indexOf(turnoEncontrado);
        this.data.splice(pos, 1);
        resolve(turnoEncontrado);
-      } catch (error) {
-       reject(error);
-    }
     })
   }
 }
