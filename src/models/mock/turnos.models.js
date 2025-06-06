@@ -25,7 +25,7 @@ class TurnoModel {
       if (!turnoEncontrado) {
         this.data.push(turno);
       } else {
-        throw new Error("el turno ya esta ocupado")
+        reject( new Error("el turno ya esta ocupado"))
       }
       resolve(turno);
     });
@@ -33,23 +33,19 @@ class TurnoModel {
 
   getTurnobyPaciente(idPaciente){
     return new Promise((resolve,reject)=>{
-      try{
         const identificador = Number(idPaciente);
         const turnoEncontrado = this.data.find(turno=>turno.idPaciente === identificador)
         if(!turnoEncontrado){
-          throw new Error("el id es incorrecto");
+          reject( new Error("el id es incorrecto"));
           }
         resolve(turnoEncontrado);
-      }catch(error){
-        reject(error)
-      }
     })
   }
   delete(id) {
     return new Promise((resolve,reject)=>{
        const turnoEncontrado = this.data.find(turno => turno.id == id);
        if(!turnoEncontrado){
-         throw new Error("No existe un turno con esa id");
+         reject( new Error("No existe un turno con esa id"));
        }
        const pos = this.data.indexOf(turnoEncontrado);
        this.data.splice(pos, 1);

@@ -9,5 +9,4 @@ class Turno extends Identificador{
         this.hora = hora;
     }
 }
-
 module.exports = Turno;

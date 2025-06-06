@@ -1,4 +1,5 @@
-const  dotenv = require('dotenv');
+const secreteWord = require("../../."); 
+dotenv = require('dotenv');
 dotenv.config()
 class Config {
     constructor(){

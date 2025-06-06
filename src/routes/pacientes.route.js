@@ -1,3 +1,5 @@
+const {validate} = require('../middlewares/validate.js')
+
 const {Router} = require('express');
 const pacientesController = require('../controllers/API/pacientes.controller.js');
 const  {verifyTokenMiddleware}  = require('../middlewares/verifyToken.middleware.js');

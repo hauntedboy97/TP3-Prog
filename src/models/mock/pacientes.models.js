@@ -38,7 +38,6 @@ class PacientesModel {
         const payload = {
           userId: userFound._id,
           userEmail: userFound.email,
-
         };
         console.log("palabra secreta, pacientes model:", Config.secreteWord);
 

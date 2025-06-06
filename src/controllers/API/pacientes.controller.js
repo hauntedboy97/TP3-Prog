@@ -26,6 +26,7 @@ class PacientesController {
   
   async create(req, res) {
     const { dni, nombre, apellido, email } = req.body;
+    
 
     const nuevoPaciente = new Paciente(dni, nombre, apellido, email);
 
