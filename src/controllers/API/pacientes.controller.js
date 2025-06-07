@@ -25,10 +25,10 @@ class PacientesController {
   }
   
   async create(req, res) {
-    const { dni, nombre, apellido, email } = req.body;
+    const { dni, nombre, apellido, email, password } = req.body;
     
 
-    const nuevoPaciente = new Paciente(dni, nombre, apellido, email);
+    const nuevoPaciente = new Paciente(dni, nombre, apellido, email, password);
 
     const info = await pacientesModel.create(nuevoPaciente);
     res.status(201).json(info);
@@ -37,14 +37,8 @@ class PacientesController {
     const id = req.params.id;
 
     const pacienteBorrado = pacientesModel.delete(id)   ;
-    pacienteBorrado.then(paciente=>{
-        res.status(200).json(paciente);
-    }).catch(
-        error=>{
-            res.status(404).json({message:`no existe el paciente conh el id:${id}`,error})}
-        
-    );
-   
+
+        res.status(200).json({message : "El paciente fue borrado"});
   }
   update(req, res) {
     const id = req.params.id;

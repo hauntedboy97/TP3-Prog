@@ -10,16 +10,18 @@ class PacientesModel {
         "Sergio",
         "Antozzi",
         "email@gmail.com",
-        "12345",
-        1
+        "12345678",
+        
       )
     );
-    this.id = 2;
+    this.id = 1;
   }
 
   findByEmail(email, password) {  
     return new Promise((resolve, reject) => {
+
       const paciente = this.data.find((p) => p.email === email && p.password === password);
+      console.log(paciente)
       if (!paciente) {
         reject(new Error("el paciente no existe"));
       } else
@@ -29,7 +31,7 @@ class PacientesModel {
   validate(email, password) {
     return new Promise(async (resolve, reject) => {
       const userFound = await this.findByEmail(email, password);
-
+       console.log(userFound)
       if (!userFound || userFound.password == null) {
         reject(new Error("wrong email or password"));
       }
@@ -54,9 +56,10 @@ class PacientesModel {
     //return persona;
     return new Promise((resolve, reject) => {
       paciente.id = this.id;
-      this.id++;
+      
       const pacienteEncontrado = this.data.find(p => p.email === paciente.email)
       if (!pacienteEncontrado) {
+        this.id++;
         this.data.push(paciente);
       } else {
         reject(new Error("el paciente ya existe"))
@@ -86,10 +89,14 @@ class PacientesModel {
         const pacienteEncontrado = this.data.find((p) => p.id == id);
         if (!pacienteEncontrado) {
           reject( new Error("el id no es válido"));
+          return;
         }
+        else{
         const pos = this.data.indexOf(pacienteEncontrado);
         this.data.splice(pos, 1);
+
         resolve(pacienteEncontrado); // elimina el elemento de la posición pos del arreglo
+        }
   })
   }
   // devuelve la lista completa en un arreglo de strings

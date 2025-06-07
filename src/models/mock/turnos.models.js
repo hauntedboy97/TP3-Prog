@@ -38,7 +38,7 @@ class TurnoModel {
         if(!turnoEncontrado){
           reject( new Error("el id es incorrecto"));
           }
-        resolve(turnoEncontrado);
+          else resolve(turnoEncontrado);
     })
   }
   delete(id) {
@@ -46,10 +46,12 @@ class TurnoModel {
        const turnoEncontrado = this.data.find(turno => turno.id == id);
        if(!turnoEncontrado){
          reject( new Error("No existe un turno con esa id"));
-       }
+       }else
+       {
        const pos = this.data.indexOf(turnoEncontrado);
        this.data.splice(pos, 1);
        resolve(turnoEncontrado);
+       }
     })
   }
 }

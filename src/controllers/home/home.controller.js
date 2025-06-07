@@ -15,11 +15,6 @@ const home = async (req, res) => {
 }
 
 const pacientes = async (req,res) => {
-    res.render('pacientes', {
-        arraypaciente = await 
-        
-
-    })
 
 }
 module.exports = {home}
