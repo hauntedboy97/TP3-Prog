@@ -1,7 +1,10 @@
 const Joi = require("joi");
+const { id } = require("../models/mock/turnos.models");
 
 const turnoSchema = {
     create: Joi.object({
+        idPaciente : Joi.number().required(),
+
         fecha: Joi.date().iso().required().messages({
             "date.base": "La fecha debe ser válida y en formato ISO",
         }),
@@ -16,11 +19,11 @@ const turnoSchema = {
     }),
 
     get: Joi.object({
-        pacienteDni: Joi.string().pattern(/^\d+$/).required().min(8).max(8)
+        idPaciente: Joi.string().pattern(/^\d+$/).required()
     }),
 
     delete: Joi.object({
-        turnoId: Joi.string().required().messages({
+        id: Joi.string().required().messages({
             "string.base": "El ID del turno es obligatorio"
         })
     })

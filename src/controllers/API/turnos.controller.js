@@ -1,29 +1,34 @@
 // TODO: crear para ver y borrar turnos
-const turnosModel = require('../../models/mock/turnos.models');
+const TurnoModel = require('../../models/mock/turnos.models');
 const Turno = require('../../models/mock/entities/turnos.entity');
 
 
 
 class TurnoController {
     async list(req, res) {
-        res.status(200).json(await turnosModel.list());
+        res.status(200).json(await TurnoModel.list());
     }
     async create(req, res) {
-        const { fecha, hora } = req.body;
+
+        const { idPaciente, fecha, hora } = req.body;
 
 
-        const nuevoTurno = new Turno(fecha, hora);
-
-        const info = await turnosModel.create(nuevoTurno);
+        const nuevoTurno = new Turno(0, fecha, hora, idPaciente);
+        const info = await TurnoModel.create(nuevoTurno);
         res.status(200).json(info);
     }
     async get(req, res) {
-        const id = req.params.idPaciente;
-        res.status(200).json(await turnosModel.getTurnobyPaciente(id));
+        const idPaciente = req.params.idPaciente;
+        res.status(200).json(await TurnoModel.getTurnobyPaciente(idPaciente));
+    }
+
+    async getTurnos(req,res){
+        res.status(200).json(await TurnoModel.list())
+
     }
     delete(req, res) {
         const id = req.params.id;
-        const turnoBorrado = turnosModel.delete(id);
+        const turnoBorrado = TurnoModel.delete(id);
         turnoBorrado.then(turno => {
             res.status(200).json(turno);
         }).catch(

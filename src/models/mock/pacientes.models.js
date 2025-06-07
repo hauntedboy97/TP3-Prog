@@ -59,8 +59,8 @@ class PacientesModel {
       
       const pacienteEncontrado = this.data.find(p => p.email === paciente.email)
       if (!pacienteEncontrado) {
-        this.id++;
         this.data.push(paciente);
+        this.id++;
       } else {
         reject(new Error("el paciente ya existe"))
       }

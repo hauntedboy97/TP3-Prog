@@ -7,12 +7,14 @@ class TurnoModel {
     this.data = [];
     this.data.push(
       new Turno(
+        0,
+        "1",
         "2025-01-01",
         "12:00:00",
-        1
+        
       )
     );
-    this.id = 2;
+    this.id = 1;
 
   }
 
@@ -20,27 +22,31 @@ class TurnoModel {
    create(turno) {
     return new Promise((resolve, reject) => {
       turno.id = this.id;
-      this.id++;
       const turnoEncontrado = this.data.find(t => t.fecha == turno.fecha && t.hora == turno.hora)
       if (!turnoEncontrado) {
         this.data.push(turno);
+        this.id++;
       } else {
         reject( new Error("el turno ya esta ocupado"))
       }
       resolve(turno);
     });
   }
+  
 
   getTurnobyPaciente(idPaciente){
     return new Promise((resolve,reject)=>{
-        const identificador = Number(idPaciente);
-        const turnoEncontrado = this.data.find(turno=>turno.idPaciente === identificador)
-        if(!turnoEncontrado){
+        
+        const turnoEncontrado = this.data.find(turno => turno.idPaciente === idPaciente);
+        console.log(turnoEncontrado)
+        if(turnoEncontrado === undefined){
           reject( new Error("el id es incorrecto"));
           }
           else resolve(turnoEncontrado);
     })
   }
+
+
   delete(id) {
     return new Promise((resolve,reject)=>{
        const turnoEncontrado = this.data.find(turno => turno.id == id);
@@ -54,5 +60,12 @@ class TurnoModel {
        }
     })
   }
+
+
+  list() {
+    return new Promise((resolve, reject) => {
+      resolve(this.data);
+    });
+  }
 }
-module.exports = TurnoModel;
+module.exports = new TurnoModel();

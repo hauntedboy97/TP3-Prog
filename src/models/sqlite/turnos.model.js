@@ -5,5 +5,7 @@ const {Turno} = require("../mock/entities/turnos.entity");
     const turnos = Turno.findAll();
     return turnos;
   }
-
+  module.exports  = {
+    getTurnosModel
+  }
   // TODO: agregar operaciones CRUD
