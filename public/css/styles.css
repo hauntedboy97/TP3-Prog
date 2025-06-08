@@ -1,9 +1,9 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 20px;
-  background-color: #f9f9f9;
+  background-color: #045164; 
   color: #333;
-  line-height: 1.6; /* Mejor lectura */
+  line-height: 1.6; 
 }
 
 h1, h2 {
@@ -20,14 +20,14 @@ ul {
 li {
   padding: 8px;
   margin-bottom: 5px;
-  background-color: #e9ecef;
+  background-color: #5795d3;
   border-radius: 4px;
 }
 
 form {
   margin-top: 20px;
   padding: 15px;
-  background-color: #ffffff;
+  background-color: #93cdf3;
   border: 1px solid #ccc;
   border-radius: 5px;
   max-width: 400px;
@@ -49,12 +49,12 @@ input:focus, button:focus {
 
 button {
   background-color: #007bff;
-  color: white;
+  color: rgb(20, 31, 133);
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3;
 }
