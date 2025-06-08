@@ -8,4 +8,3 @@ const {Turno} = require("../mock/entities/turnos.entity");
   module.exports  = {
     getTurnosModel
   }
-  // TODO: agregar operaciones CRUD

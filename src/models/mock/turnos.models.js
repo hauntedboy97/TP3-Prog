@@ -8,10 +8,9 @@ class TurnoModel {
     this.data.push(
       new Turno(
         0,
-        "1",
         "2025-01-01",
-        "12:00:00",
-        
+        "12:00",
+        "1",
       )
     );
     this.id = 1;

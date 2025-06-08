@@ -11,7 +11,4 @@ const validate = (schema, property = 'body') => {
     }
 };
 
-//TODO : validaciones, que no explote todo cuando mandas un dato erroneo 
-//frontend en ejs
-
 module.exports = {validate};

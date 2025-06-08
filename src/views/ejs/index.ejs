@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <title><%= title %></title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="../../../public/css/styles.css">
-</head>
+<%- include ('partials/header') %>
 <body>
-    <h1><%= message %></h1>
-    <h2>Estoy en EJS</h2>
-    <p>Bienvenido a nuestra aplicación</p>
-
-    <% if (showFeatures) { %>
-        <h2>Características principales:</h2>
-        <ul>
-            <% features.forEach(function(feature) { %>
-                <li><%= feature %></li>
-            <% }); %>
-        </ul>
-    <% } else { %>
-        <p>No hay características disponibles.</p>
-    <% } %>
-
-    <%# Esto es un comentario (no se renderiza en el HTML) %>
-    
-    <footer>
-        <p>© <%= new Date().getFullYear() %> Mi Aplicación</p>
-    </footer>
+    <h1>Bienvenido a Clínica Salud Integral</h1>
+    <nav>
+        <a href="/turnos">Turnos</a> |
+        <a href="/pacientes">Pacientes</a>
+    </nav>
 </body>
 </html>

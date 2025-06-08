@@ -7,12 +7,11 @@ const rutaPacientes = Router();
 
 
 rutaPacientes.get('/', verifyTokenMiddleware, pacientesController.list);
-rutaPacientes.post('/login', validate(pacienteSchema.login) ,pacientesController.login)
+rutaPacientes.post('/login', validate(pacienteSchema.login) ,pacientesController.login);
 rutaPacientes.post('/' ,validate(pacienteSchema.create) ,pacientesController.create);
 rutaPacientes.put('/:id',verifyTokenMiddleware, validate(pacienteSchema.update) ,pacientesController.update);
 rutaPacientes.delete('/:id',verifyTokenMiddleware, validate(pacienteSchema.delete, "params") ,pacientesController.delete);
 
-//TODO: Otras rutas CRUD
 
 
 module.exports = rutaPacientes;

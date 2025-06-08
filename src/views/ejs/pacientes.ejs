@@ -1,1 +1,36 @@
-//TODO: Crear pacientes en ejs   
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil del Paciente</title>
+</head>
+
+<body>
+    <table class="tabla-pacientes">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% paciente.forEach(pacientes=> { %>
+                <tr>
+                    <td>
+                        <%= pacientes.nombre %>
+                    </td>
+                    <td>
+                        <%= pacientes.apellido %>
+                    </td>
+                    <td>
+                        <%= pacientes.email %>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+</body>
+
+</html>

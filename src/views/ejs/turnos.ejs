@@ -1,1 +1,37 @@
-// TODO:  crear la pagina turnos en ejs
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de turnos</title>
+</head>
+<body>
+    <table class="tabla-turnos">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>fecha</th>
+                <th>hora</th>
+                <th>id paciente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% turno.forEach(turno=> { %>
+                <tr>
+                    <td>
+                        <%= turno.id %>
+                    </td>
+                    <td>
+                        <%= turno.fecha %>
+                    </td>
+                    <td>
+                        <%= turno.hora %>
+                    </td>
+                    <td>
+                        <%= turno.idPaciente %>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>
